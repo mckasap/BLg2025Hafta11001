@@ -1,8 +1,10 @@
 package com.example.blg2025hafta10001;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,20 +25,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        textView = (TextView) findViewById(R.id.textView);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView = (TextView) findViewById(R.id.textView);
-                textView.setText("Bize Her yer Trabzon!!");
 
-            }
-        });
+    }
+
+    public void Play(View view) {
+       Button v= (Button) view;
+       int id= v.getId();
+       String resId= getResources().getResourceEntryName(id);
+       int mp3Id= getResources().getIdentifier(resId, "raw", getPackageName());
+       MediaPlayer mediaPlayer= MediaPlayer.create(this, mp3Id);
+       mediaPlayer.start();
+       textView.setText(resId);
+
+
+
+
+
     }
 }
